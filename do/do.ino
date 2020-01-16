@@ -1,3 +1,4 @@
+
 #include <Adafruit_Fingerprint.h>
 
 // On Leonardo/Micro or others with hardware serial, use those! #0 is green wire, #1 is white
@@ -18,9 +19,6 @@ void setup()
   while (!Serial);  // For Yun/Leo/Micro/Zero/...
   delay(100);
   Serial.println("\n\nAdafruit finger detect test");
-  pinMode(12,OUTPUT);
-  pinMode(13,OUTPUT);
-
 
   // set the data rate for the sensor serial port
   finger.begin(57600);
@@ -40,7 +38,7 @@ void setup()
 void loop()                     // run over and over again
 {
   getFingerprintIDez();
-  digitalWrite(12, HIGH); 
+  digitalWrite(12,HIGH);
 }
 
 uint8_t getFingerprintID() {
@@ -74,42 +72,6 @@ uint8_t getFingerprintID() {
       Serial.println("Image too messy");
       return p;
     case FINGERPRINT_PACKETRECIEVEERR:
-#include <Adafruit_Fingerprint.h>
-#include <SoftwareSerial.h>
-SoftwareSerial mySerial(2, 3);
-
-Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
-int fingerprintID = 0;
-
-
-void setup(){
-  //Fingerprint sensor module setup
-  Serial.begin(9600);
-  // set the data rate for the sensor serial port
-  finger.begin(57600);
-  
-  if (finger.verifyPassword()) {
-    Serial.println("Found fingerprint sensor!");
-  } 
-  else {
-    Serial.println("Did not find fingerprint sensor :(");
-    while (1) { delay(1); }
-  }
-
-
-}
-
-void loop(){
-  delay(50);
-  if(fingerprintID == 1 || fingerprintID == 3 || fingerprintID == 4 || fingerprintID == 5){
-           
-  }  
-  else if(fingerprintID == 2){
-         
-  }
-}
-
-// returns -1 if
       Serial.println("Communication error");
       return p;
     case FINGERPRINT_FEATUREFAIL:
@@ -149,7 +111,7 @@ void loop(){
 int getFingerprintIDez() {
   uint8_t p = finger.getImage();
   if (p != FINGERPRINT_OK)  return -1;
- 
+
   p = finger.image2Tz();
   if (p != FINGERPRINT_OK)  return -1;
 
@@ -163,7 +125,7 @@ int getFingerprintIDez() {
   digitalWrite(13,LOW);   //turns green LED off
   delay(1000);             //waits 1 second
   digitalWrite(12,HIGH);   //turns red LED off
-    Serial.print("Found ID #"); Serial.print(finger.fingerID); 
+  Serial.print("Found ID #"); Serial.print(finger.fingerID); 
   Serial.print(" with confidence of "); Serial.println(finger.confidence);
   return finger.fingerID; 
 }
