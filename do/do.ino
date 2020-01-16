@@ -163,3 +163,7 @@ int getFingerprintIDez() {
   digitalWrite(13,LOW);   //turns green LED off
   delay(1000);             //waits 1 second
   digitalWrite(12,HIGH);   //turns red LED off
+    Serial.print("Found ID #"); Serial.print(finger.fingerID); 
+  Serial.print(" with confidence of "); Serial.println(finger.confidence);
+  return finger.fingerID; 
+}
