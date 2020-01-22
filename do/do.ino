@@ -119,10 +119,12 @@ int getFingerprintIDez() {
   if (p != FINGERPRINT_OK)  return -1;
   
   // found a match!
+  tone(8,440);
   digitalWrite(12,LOW);   //turns red LED off
   digitalWrite(13,HIGH);  //turns green LED on
   delay(1000);             //waits 1 second
   digitalWrite(13,LOW);   //turns green LED off
+  noTone(8);
   delay(1000);             //waits 1 second
   digitalWrite(12,HIGH);   //turns red LED off
   Serial.print("Found ID #"); Serial.print(finger.fingerID); 
