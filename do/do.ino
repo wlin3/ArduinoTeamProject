@@ -13,7 +13,7 @@ SoftwareSerial mySerial(2, 3);
 
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 
-void setup()  
+void setup()
 {
   Serial.begin(9600);
   while (!Serial);  // For Yun/Leo/Micro/Zero/...
@@ -27,7 +27,9 @@ void setup()
     Serial.println("Found fingerprint sensor!");
   } else {
     Serial.println("Did not find fingerprint sensor :(");
-    while (1) { delay(1); }
+    while (1) {
+      delay(1);
+    }
   }
 
   finger.getTemplateCount();
@@ -38,7 +40,7 @@ void setup()
 void loop()                     // run over and over again
 {
   getFingerprintIDez();
-  digitalWrite(12,HIGH);
+  digitalWrite(12, HIGH);
 }
 
 uint8_t getFingerprintID() {
@@ -84,7 +86,7 @@ uint8_t getFingerprintID() {
       Serial.println("Unknown error");
       return p;
   }
-  
+
   // OK converted!
   p = finger.fingerFastSearch();
   if (p == FINGERPRINT_OK) {
@@ -98,11 +100,11 @@ uint8_t getFingerprintID() {
   } else {
     Serial.println("Unknown error");
     return p;
-  }   
-  
+  }
+
   // found a match!
-  Serial.print("Found ID #"); Serial.print(finger.fingerID); 
-  Serial.print(" with confidence of "); Serial.println(finger.confidence); 
+  Serial.print("Found ID #"); Serial.print(finger.fingerID);
+  Serial.print(" with confidence of "); Serial.println(finger.confidence);
 
   return finger.fingerID;
 }
@@ -117,17 +119,20 @@ int getFingerprintIDez() {
 
   p = finger.fingerFastSearch();
   if (p != FINGERPRINT_OK)  return -1;
+  tone(8, 25);
+  delay(1000);
+  noTone(8);
   
-  // found a match!
-  tone(8,440);
-  digitalWrite(12,LOW);   //turns red LED off
-  digitalWrite(13,HIGH);  //turns green LED on
-  delay(1000);             //waits 1 second
-  digitalWrite(13,LOW);   //turns green LED off
+
+  tone(8, 440);
+  digitalWrite(12, LOW);  //turns red LED off
+  digitalWrite(13, HIGH); //turns green LED on
+  delay(1000);             //waits 1 second  
+  digitalWrite(13, LOW);  //turns green LED off
   noTone(8);
   delay(1000);             //waits 1 second
-  digitalWrite(12,HIGH);   //turns red LED off
-  Serial.print("Found ID #"); Serial.print(finger.fingerID); 
+  digitalWrite(12, HIGH);  //turns red LED off
+  Serial.print("Found ID #"); Serial.print(finger.fingerID);
   Serial.print(" with confidence of "); Serial.println(finger.confidence);
-  return finger.fingerID; 
-}
+  return finger.fingerID;
+  }
