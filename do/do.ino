@@ -119,10 +119,8 @@ int getFingerprintIDez() {
 
   p = finger.fingerFastSearch();
   if (p != FINGERPRINT_OK)  return -1;
-  tone(8, 25);
-  delay(1000);
-  noTone(8);
-  
+
+// What happens when the fingerprint is correct
 
   tone(8, 440);
   digitalWrite(12, LOW);  //turns red LED off
